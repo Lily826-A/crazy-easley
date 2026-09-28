@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#efe7d6" />
+    <title>新江湖骗经·未完卷｜</title>
+    <style>
+      :root {
+        --paper: #f3ecd9;
+        --paper2: #eadfc3;
+        --ink: #1e1b17;
+        --muted: #6d6255;
+        --line: #cdbf9f;
+        --red: #8e2f28;
+        --deep: #2e2a23;
+        --green: #415a43;
+        --card: #fffaf0;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: radial-gradient(
+            circle at 20% 10%,
+            rgba(255, 255, 255, 0.35),
+            transparent 30%
+          ),
+          repeating-linear-gradient(
+            0deg,
+            rgba(72, 58, 35, 0.025) 0,
+            rgba(72, 58, 35, 0.025) 1px,
+            transparent 1px,
+            transparent 4px
+          ),
+          var(--paper);
+        font-family: "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+      }
+      button,
+      input,
+      textarea,
+      select {
+        font: inherit;
+      }
+      button {
+        cursor: pointer;
+      }
+      a {
+        color: inherit;
+      }
+      .app {
+        width: min(100%, 480px);
+        margin: 0 auto;
+        min-height: 100vh;
+        position: relative;
+        overflow: hidden;
+        border-left: 1px solid rgba(73, 57, 32, 0.08);
+        border-right: 1px solid rgba(73, 57, 32, 0.08);
+      }
+      .screen {
+        display: none;
+        padding: 22px 18px 34px;
+      }
+      .screen.active {
+        display: block;
+        animation: fade 0.35s ease;
+      }
+      @keyframes fade {
+        from {
+          opacity: 0.25;
+          transform: translateY(5px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .topline {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        margin-bottom: 18px;
+      }
+      .seal {
+        display: inline-grid;
+        place-items: center;
+        width: 46px;
+        height: 46px;
+        color: var(--red);
+        border: 2px solid var(--red);
+        border-radius: 7px;
+        transform: rotate(-4deg);
+        font-weight: 800;
+        line-height: 1.05;
+        text-align: center;
+        font-family: "STKaiti", "KaiTi", serif;
+      }
+      .hero {
+        padding: 48px 4px 20px;
+        text-align: center;
+      }
+      .kicker {
+        font-size: 13px;
+        letter-spacing: 0.38em;
+        color: var(--muted);
+        margin-bottom: 18px;
+      }
+      h1 {
+        margin: 0;
+        font-size: 42px;
+        line-height: 1.16;
+        letter-spacing: 0.08em;
+        font-weight: 800;
+      }
+      .sub {
+        margin: 12px 0 0;
+        font-size: 18px;
+        color: var(--red);
+        letter-spacing: 0.22em;
+      }
+      .manifesto {
+        margin: 34px auto 24px;
+        padding: 20px 18px;
+        max-width: 380px;
+        text-align: left;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        line-height: 2;
+        font-size: 16px;
+      }
+      .manifesto strong {
+        color: var(--red);
+      }
+      .primary,
+      .secondary,
+      .choice {
+        width: 100%;
+        border-radius: 14px;
+        min-height: 52px;
+        padding: 14px 16px;
+        border: 1px solid var(--deep);
+      }
+      .primary {
+        background: var(--deep);
+        color: #fff9eb;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+      }
+      .secondary {
+        background: transparent;
+        color: var(--ink);
+        margin-top: 10px;
+      }
+      .smallnote {
+        font-size: 12px;
+        line-height: 1.7;
+        color: var(--muted);
+        margin-top: 16px;
+      }
+      .chapter-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+      .chapter-title {
+        font-size: 13px;
+        color: var(--red);
+        letter-spacing: 0.18em;
+        font-weight: 700;
+      }
+      .scene {
+        background: rgba(255, 250, 240, 0.72);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 20px 18px;
+        box-shadow: 0 8px 26px rgba(63, 49, 29, 0.06);
+      }
+      .scene-label {
+        font-size: 12px;
+        color: var(--muted);
+        letter-spacing: 0.1em;
+      }
+      .scene h2 {
+        font-size: 23px;
+        line-height: 1.45;
+        margin: 9px 0 12px;
+      }
+      .scene p {
+        font-family: system-ui, -apple-system, "PingFang SC", "Microsoft YaHei",
+          sans-serif;
+        line-height: 1.78;
+        margin: 0;
+        color: #3a342c;
+      }
+      .choices {
+        display: grid;
+        gap: 11px;
+        margin-top: 18px;
+      }
+      .choice {
+        text-align: left;
+        background: #fffaf1;
+        border-color: var(--line);
+        color: var(--ink);
+        font-family: system-ui, -apple-system, "PingFang SC", "Microsoft YaHei",
+          sans-serif;
+        transition: 0.18s ease;
+      }
+      .choice:active {
+        transform: scale(0.99);
+      }
+      .choice.selected {
+        border-color: var(--red);
+        box-shadow: 0 0 0 2px rgba(142, 47, 40, 0.08);
+      }
+      .footer-progress {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .progressbar {
+        height: 3px;
+        background: rgba(108, 92, 68, 0.14);
+        border-radius: 99px;
+        margin-top: 8px;
+        overflow: hidden;
+      }
+      .progressbar i {
+        display: block;
+        height: 100%;
+        background: var(--red);
+        width: 20%;
+        transition: width 0.3s ease;
+      }
+      .reveal-wrap {
+        padding-top: 10px;
+      }
+      .result {
+        font-size: 14px;
+        color: var(--red);
+        font-weight: 700;
+        margin: 0 0 14px;
+      }
+      .card {
+        position: relative;
+        background: var(--card);
+        border: 1px solid #ad9d7c;
+        border-radius: 18px;
+        padding: 23px 19px 19px;
+        box-shadow: 0 14px 36px rgba(58, 44, 25, 0.08);
+      }
+      .card:before {
+        content: "";
+        position: absolute;
+        inset: 6px;
+        border: 1px solid rgba(123, 99, 61, 0.18);
+        border-radius: 13px;
+        pointer-events: none;
+      }
+      .card-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 14px;
+        position: relative;
+      }
+      .ju {
+        font-size: 12px;
+        color: var(--muted);
+        letter-spacing: 0.14em;
+      }
+      .card h2 {
+        font-size: 28px;
+        line-height: 1.3;
+        margin: 6px 0 2px;
+      }
+      .alias {
+        font-size: 14px;
+        color: var(--red);
+        margin: 0;
+      }
+      .block {
+        position: relative;
+        padding: 15px 0;
+        border-top: 1px dashed var(--line);
+      }
+      .block:first-of-type {
+        margin-top: 18px;
+      }
+      .block b {
+        font-size: 12px;
+        letter-spacing: 0.15em;
+        color: var(--muted);
+      }
+      .block p {
+        margin: 7px 0 0;
+        line-height: 1.78;
+        font-family: system-ui, -apple-system, "PingFang SC", "Microsoft YaHei",
+          sans-serif;
+      }
+      .breakline {
+        background: #29251f;
+        color: #fff8ea;
+        border-radius: 12px;
+        padding: 15px 14px;
+        margin-top: 14px;
+        font-size: 17px;
+        line-height: 1.65;
+        font-weight: 700;
+      }
+      .source {
+        position: relative;
+        margin-top: 14px;
+        font-size: 12px;
+        line-height: 1.65;
+        color: var(--muted);
+        word-break: break-all;
+      }
+      .source a {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+      .row {
+        display: flex;
+        gap: 10px;
+        margin-top: 16px;
+      }
+      .row button {
+        flex: 1;
+      }
+      .library h2,
+      .submit h2 {
+        font-size: 28px;
+        margin: 5px 0 8px;
+      }
+      .filters {
+        display: flex;
+        gap: 8px;
+        overflow: auto;
+        padding: 3px 0 12px;
+      }
+      .chip {
+        white-space: nowrap;
+        border: 1px solid var(--line);
+        background: transparent;
+        border-radius: 999px;
+        padding: 8px 12px;
+        font-size: 13px;
+      }
+      .chip.on {
+        background: var(--deep);
+        color: white;
+        border-color: var(--deep);
+      }
+      .list {
+        display: grid;
+        gap: 10px;
+      }
+      .listitem {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 14px;
+        background: rgba(255, 250, 240, 0.72);
+      }
+      .listitem .t {
+        font-weight: 800;
+        font-size: 17px;
+      }
+      .listitem .m {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 6px;
+      }
+      .listitem .tip {
+        font-family: system-ui, -apple-system, "PingFang SC", "Microsoft YaHei",
+          sans-serif;
+        margin-top: 9px;
+        line-height: 1.6;
+        font-size: 14px;
+      }
+      .nav {
+        position: sticky;
+        bottom: 0;
+        display: flex;
+        justify-content: space-around;
+        gap: 6px;
+        background: rgba(244, 237, 220, 0.96);
+        backdrop-filter: blur(12px);
+        border-top: 1px solid var(--line);
+        padding: 9px max(8px, env(safe-area-inset-right))
+          calc(9px + env(safe-area-inset-bottom))
+          max(8px, env(safe-area-inset-left));
+      }
+      .nav button {
+        border: 0;
+        background: transparent;
+        color: var(--muted);
+        padding: 8px 10px;
+        font-size: 12px;
+        border-radius: 10px;
+      }
+      .nav button.on {
+        color: var(--red);
+        font-weight: 800;
+        background: rgba(142, 47, 40, 0.07);
+      }
+      .modal {
+        position: fixed;
+        inset: 0;
+        display: none;
+        align-items: flex-end;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.48);
+        z-index: 50;
+      }
+      .modal.show {
+        display: flex;
+      }
+      .sheet {
+        width: min(100%, 480px);
+        max-height: 86vh;
+        overflow: auto;
+        background: var(--paper);
+        border-radius: 22px 22px 0 0;
+        padding: 22px 18px calc(22px + env(safe-area-inset-bottom));
+      }
+      .sheet h3 {
+        margin: 0 0 8px;
+        font-size: 24px;
+      }
+      .check {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px 0;
+        line-height: 1.55;
+        font-family: system-ui, -apple-system, "PingFang SC", "Microsoft YaHei",
+          sans-serif;
+      }
+      .check input {
+        width: 20px;
+        height: 20px;
+        margin-top: 2px;
+      }
+      .formlabel {
+        display: block;
+        font-size: 13px;
+        color: var(--muted);
+        margin: 14px 0 6px;
+      }
+      textarea,
+      input,
+      select {
+        width: 100%;
+        border: 1px solid var(--line);
+        background: #fffaf1;
+        border-radius: 12px;
+        padding: 12px 13px;
+        font-family: system-ui, -apple-system, "PingFang SC", "Microsoft YaHei",
+          sans-serif;
+        font-size: 16px;
+        color: var(--ink);
+      }
+      textarea {
+        min-height: 96px;
+        resize: vertical;
+      }
+      .pending {
+        margin-top: 16px;
+        border: 1px dashed var(--line);
+        padding: 12px;
+        border-radius: 12px;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.7;
+      }
+      .endquote {
+        text-align: center;
+        padding: 54px 12px 26px;
+      }
+      .endquote .big {
+        font-size: 28px;
+        line-height: 1.65;
+        font-weight: 800;
+      }
+      .endquote .big strong {
+        color: var(--red);
+      }
+      .endquote p {
+        line-height: 1.9;
+        color: var(--muted);
+      }
+      .tiny {
+        font-size: 11px;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+    </style>
+  </head>
+  <body
+    data-ivx-project="新江湖骗经·未完卷"
+    data-ivx-version="V4-iVX"
+    data-ivx-design="古籍×手机反诈互动"
+  >
+    <main class="app">
+      <section id="home" class="screen active" data-ivx-page="P01_HOME">
+        <div class="topline">
+          <span>新江湖骗经</span><span class="seal">未完<br />卷</span>
+        </div>
+        <div class="hero">
+          <div class="kicker">骗有千术 · 慎在一心</div>
+          <h1>新江湖骗经</h1>
+          <div class="sub">· 未完卷 ·</div>
+        </div>
+        <div class="manifesto">
+          世路日新，骗术亦日新，<br />
+          名目虽变，所乘者不过人之贪、急、惧、信。<br />
+          你不是不会被骗，<br />
+          只是还没遇见<strong>为你设的那一局</strong>。<br />
+        </div>
+        <button class="primary" id="startBtn" data-ivx-event="START_GAME">
+          入局
+        </button>
+        <button class="secondary" data-go="library">先翻骗经</button>
+        <div class="smallnote">
+          今采真实见闻，分门录之。所记不过已见之局，未见者仍在后来，故名《未完卷》。
+        </div>
+      </section>
+
+      <section id="play" class="screen" data-ivx-page="P02_SCENE">
+        <div class="chapter-head">
+          <div>
+            <div class="chapter-title" id="chapterTitle">第一局</div>
+            <div
+              class="smallnote"
+              id="chapterType"
+              style="margin-top: 5px"
+            ></div>
+          </div>
+          <span class="seal" style="width: 40px; height: 40px; font-size: 12px"
+            >入<br />局</span
+          >
+        </div>
+        <article class="scene">
+          <div class="scene-label">此刻，你会怎么做？</div>
+          <h2 id="sceneTitle"></h2>
+          <p id="sceneText"></p>
+          <div class="choices" id="choices"></div>
+        </article>
+        <div class="footer-progress">
+          <span id="progressText">1 / 5</span>
+          <span id="rightText">已识破 0 局</span>
+        </div>
+        <div class="progressbar"><i id="progressBar"></i></div>
+      </section>
+
+      <section id="reveal" class="screen" data-ivx-page="P03_REVEAL">
+        <div class="reveal-wrap">
+          <p class="result" id="resultText"></p>
+          <article class="card">
+            <div class="card-top">
+              <div>
+                <div class="ju" id="juNo"></div>
+                <h2 id="trickTitle"></h2>
+                <p class="alias" id="alias"></p>
+              </div>
+              <span
+                class="seal"
+                style="width: 42px; height: 42px; font-size: 12px"
+                >揭<br />局</span
+              >
+            </div>
+            <div class="block">
+              <b>骗术</b>
+              <p id="method"></p>
+            </div>
+            <div class="block">
+              <b>借的是人心</b>
+              <p id="psych"></p>
+            </div>
+            <div class="block">
+              <b>破绽</b>
+              <p id="redflags"></p>
+            </div>
+            <div class="breakline" id="breakLine"></div>
+            <div class="source" id="source"></div>
+          </article>
+          <div class="row">
+            <button class="secondary" id="collectBtn" style="margin-top: 0">
+              收进骗经
+            </button>
+            <button class="primary" id="nextBtn" data-ivx-event="NEXT_CASE">
+              翻下一局
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section id="library" class="screen library" data-ivx-page="P04_LIBRARY">
+        <div class="topline">
+          <span>骗经总目</span><span id="libCount">5 局</span>
+        </div>
+        <h2>见过，才更容易识破。</h2>
+        <div class="smallnote" style="margin: 0 0 14px">
+          真真假假，你能分辨吗？
+        </div>
+        <div class="filters" id="filters"></div>
+        <div class="list" id="caseList"></div>
+      </section>
+
+      <section id="submit" class="screen submit" data-ivx-page="P05_SUBMIT">
+        <div class="topline">
+          <span>续一局</span
+          ><span class="seal" style="width: 40px; height: 40px; font-size: 12px"
+            >待<br />录</span
+          >
+        </div>
+        <h2>你遇见过本书里没有的局吗？</h2>
+        <p class="smallnote" style="margin-top: 0">
+          请只提交你亲历、核实过，或能提供公开来源的骗局线索。公开展示前应经过隐私处理与内容审核。
+        </p>
+        <button class="primary" id="openPrivacy" data-ivx-event="OPEN_PRIVACY">
+          开始续卷
+        </button>
+        <div class="pending" id="pendingBox">
+          本投稿仅保存在当前浏览器本地，标记为“待审核”；正式上线需要接入数据库和审核后台。
+        </div>
+      </section>
+
+      <section id="ending" class="screen" data-ivx-page="P06_END">
+        <div class="endquote">
+          <div class="seal" style="margin: 0 auto 20px">未完<br />卷</div>
+          <div class="big">
+            你识破的，<br />只是你<strong>已经见过</strong>的局。
+          </div>
+          <p id="endingScore"></p>
+          <div class="manifesto" style="margin-top: 26px; text-align: center">
+            真正危险的，<br />
+            是为你量身打造的那一局。
+          </div>
+          <button class="primary" data-go="library">继续阅卷</button>
+          <button class="secondary" data-go="submit">我来续一局</button>
+          <p class="tiny" style="margin-top: 20px">
+            此卷未完，愿你永远只是读者。
+          </p>
+        </div>
+      </section>
+
+      <nav class="nav">
+        <button data-go="home" class="on">卷首</button>
+        <button data-go="play">入局</button>
+        <button data-go="library">骗经</button>
+        <button data-go="submit">续卷</button>
+      </nav>
+    </main>
+
+    <div class="modal" id="privacyModal" aria-hidden="true">
+      <div class="sheet">
+        <h3>续卷之前，先遮隐私</h3>
+        <p class="smallnote" style="margin-top: 0">
+          请确认你已经处理可能识别个人身份或账户的信息。
+        </p>
+        <label class="check"
+          ><input type="checkbox" id="c1" />
+          <span>已遮盖姓名、头像、电话、住址、身份证号等个人信息。</span></label
+        >
+        <label class="check"
+          ><input type="checkbox" id="c2" />
+          <span
+            >已遮盖银行卡号、订单号、验证码、支付账户等敏感信息。</span
+          ></label
+        >
+        <label class="check"
+          ><input type="checkbox" id="c3" />
+          <span
+            >不上传诈骗操作的可复制细节，只描述骗局特征、识别信号与防范方法。</span
+          ></label
+        >
+        <button class="primary" id="privacyNext" disabled>
+          我已确认，继续
+        </button>
+        <button class="secondary" id="privacyClose">取消</button>
+      </div>
+    </div>
+
+    <div class="modal" id="submitModal" aria-hidden="true">
+      <form class="sheet" id="submitForm">
+        <h3>续一局《骗经》</h3>
+        <label class="formlabel">这一局是怎么开始的？</label>
+        <textarea
+          required
+          id="fStart"
+          placeholder="例如：收到陌生包裹，里面有一张“礼品卡”……"
+        ></textarea>
+        <label class="formlabel">哪一句话 / 哪个动作最容易让人相信？</label>
+        <textarea
+          required
+          id="fHook"
+          placeholder="例如：对方准确说出了我的收件信息。"
+        ></textarea>
+        <label class="formlabel">你是怎么发现不对的？</label>
+        <textarea
+          required
+          id="fBreak"
+          placeholder="例如：回到官方订单里查不到这笔记录。"
+        ></textarea>
+        <label class="formlabel">公开来源（可选）</label>
+        <input id="fSource" placeholder="小红书 / 新闻 / 官方风险提示链接" />
+        <button
+          class="primary"
+          type="submit"
+          style="margin-top: 16px"
+          data-ivx-event="SUBMIT_PENDING"
+        >
+          提交，进入待审核
+        </button>
+        <button class="secondary" type="button" id="submitClose">取消</button>
+      </form>
+    </div>
+
+    <script>
+      const cases = [
+        {
+          id: 1,
+          type: "退款 / 共享屏幕",
+          chapter: "第一局",
+          title: "退款是假，共享盗刷是真",
+          alias: "小额退款，撬开大额账户",
+          sceneTitle: "228 元扣款后，“客服”说可以帮你退款",
+          sceneText:
+            "你参加一个看起来正规的品牌体验活动，扫码后意外扣了 228 元。对方很着急，说是你操作错误，让你下载 Teams，开启屏幕共享，称要帮你“降低账户风险”并退款。你会怎么做？",
+          choices: [
+            ["先配合共享屏幕，退款要紧", false],
+            ["停止联系，从品牌官方渠道重新核实", true],
+            ["先按他说的转一笔小额，看看能不能退", false],
+          ],
+          method:
+            "先用小额扣款制造损失感，再以“退款”“降低账户风险”为名，把人引到正规会议软件中进行屏幕共享和转账。软件是真的，客服身份却未必是真的。",
+          psych: "恐慌、沉没成本，以及对“大品牌”“正规软件”的天然信任。",
+          redflags:
+            "要求下载会议软件、开启屏幕共享、以“刷流水”“降风险”为由转账。",
+          breakLine: "退款不共屏，转账不解冻；只从品牌或平台原入口核验。",
+          sourceName: "小红书 @栀豆圆圆《我就是笨蛋中的笨蛋》",
+          sourceUrl:
+            "https://www.xiaohongshu.com/discovery/item/6a6cdadc0000000025009f2a",
+        },
+        {
+          id: 2,
+          type: "求职 / 借号",
+          chapter: "第二局",
+          title: "高薪是假，骗取账号是真",
+          alias: "先给你工作，再借你的身份",
+          sceneTitle: "陌生人开出 6000 元月薪，只想借一下“闲置账号”",
+          sceneText:
+            "你在社交平台吐槽求职难，有人主动邀你做线上助理。聊了很久后，他反复索要银行卡；被拒后，又说只是借一个无实名或闲置账号周转，很快就还。你会？",
+          choices: [
+            ["闲置账号没什么价值，可以借", false],
+            ["拒绝提供银行卡、支付账户和社交账号", true],
+            ["不给银行卡，但给一个小号没关系", false],
+          ],
+          method:
+            "用高薪兼职建立期待，长时间聊天和情绪拉扯降低戒心，最终索取银行卡、支付账户或社交账号，使受害者卷入异常资金链。",
+          psych: "求职焦虑、好奇心，以及争吵—卖惨后产生的愧疚和心软。",
+          redflags:
+            "主动高薪、工作内容模糊、索要银行卡或实名账号、声称“账号受损”“资金延迟”。",
+          breakLine:
+            "卡、号、实名账户都不是“闲置物”；陌生人一索要，立刻终止联系。",
+          sourceName: "小红书 @quiet《姐妹们、新型诈骗 骗子手段太高了》",
+          sourceUrl:
+            "https://www.xiaohongshu.com/discovery/item/6a746fd500000000210218ed",
+        },
+        {
+          id: 3,
+          type: "快递 / 陌生包裹",
+          chapter: "第三局",
+          title: "包裹是假，扫码引流是真",
+          alias: "信息越准，越要核验",
+          sceneTitle: "没买过的包裹，姓名、电话、地址却全都对",
+          sceneText:
+            "包裹里只有一张“礼品卡”，写着免费领取、积分兑换或售后补偿，并附二维码。你查不到任何订单记录。下一步你会？",
+          choices: [
+            ["扫二维码看看，反正先不付款", false],
+            ["不扫码、不加人，先核对官方订单", true],
+            ["联系卡片上的客服问清楚", false],
+          ],
+          method:
+            "利用精准收件信息制造“这件事与我有关”的错觉，再通过礼品、理赔、返现或积分把你引向二维码、私聊和后续转账。",
+          psych:
+            "好奇、贪小便宜，以及“对方知道我的信息，所以他是真的”的错误判断。",
+          redflags:
+            "无订单却收到包裹；卡片要求扫码、加好友；所谓快递赔付、免费兑换、返现。",
+          breakLine:
+            "来路不明的包裹不扫码、不加人；所有核验回到官方订单与官方客服。",
+          sourceName: "小红书 @李想119《收到不明包裹一定要警惕》",
+          sourceUrl:
+            "https://www.xiaohongshu.com/discovery/item/6a689664000000000402928e",
+        },
+        {
+          id: 4,
+          type: "票务 / 假客服",
+          chapter: "第四局",
+          title: "出票是假，收割骗钱是真",
+          alias: "先制造故障，再出售“解决方案”",
+          sceneTitle: "“内部票”出票失败，客服说你的身份信息填错了",
+          sceneText:
+            "你在二手平台买演唱会内部票，付款后显示出票失败。卖家把你引到站外所谓“银联客服”，要求安装会议软件，并以解除交易风险、恢复数据为由让你进行资金操作。你会？",
+          choices: [
+            ["继续按客服指导，把已经付的钱救回来", false],
+            ["停止站外操作，只联系原交易平台官方客服", true],
+            ["先完成一次小额操作，成功再继续", false],
+          ],
+          method:
+            "先用稀缺票源促成交易，再制造“出票失败”“信息错误”，把受害者引离原平台，由假客服以解除风险、打印流水、恢复数据为由不断追加资金操作。",
+          psych:
+            "稀缺资源带来的急迫、已经付钱后的沉没成本，以及突然出错造成的恐慌。",
+          redflags:
+            "站外客服、会议软件语音指导、“解除交易风险”“恢复数据”“刷流水”。",
+          breakLine:
+            "交易一旦被引离原平台，又出现“解冻、修复、刷流水”，马上停手。",
+          sourceName: "小红书 @三角志🍄《被诈骗8.4万心路历程》",
+          sourceUrl:
+            "https://www.xiaohongshu.com/discovery/item/6a82b8a40000000025013fe1",
+        },
+        {
+          id: 5,
+          type: "抽奖 / 连环付款",
+          chapter: "第五局",
+          title: "中奖是假，催款诈骗是真",
+          alias: "先给惊喜，再用恐惧锁住你",
+          sceneTitle: "常看的博主抽奖，你成了“第 3 位中奖者”",
+          sceneText:
+            "你从熟悉博主的抽奖内容进入群聊，群主私信说你中奖了。领奖过程中不断出现新的步骤，需要继续付款；当你想退出，对方又说不处理就会产生违约金并影响信用。你会？",
+          choices: [
+            ["已经做到最后一步了，再付一次", false],
+            ["退出群聊，从博主公开主页核实活动真伪", true],
+            ["先找朋友周转，中奖后再还", false],
+          ],
+          method:
+            "借熟悉博主或抽奖活动建立可信入口，用“中奖”制造兴奋，再通过层层步骤不断要求付款；当受害者迟疑时，再用违约、扣款、失信等说法制造恐惧。",
+          psych: "意外之喜、已经投入的钱和时间，以及对违约和信用受损的恐惧。",
+          redflags:
+            "第三方群聊、连续付款解锁领奖、所谓扣款协议、失信名单、必须立刻处理。",
+          breakLine:
+            "中奖不靠连续转账解锁；凡不断加码付款的“领奖流程”，先退出，再核实。",
+          sourceName: "小红书 @煎包（抽奖诈骗经历帖）",
+          sourceUrl:
+            "https://www.xiaohongshu.com/discovery/item/6a905b7800000000200324d6",
+        },
+      ];
+
+      let index = 0,
+        solved = 0,
+        selectedCorrect = false;
+      const collected = new Set();
+      const el = (id) => document.getElementById(id);
+
+      function show(name) {
+        document
+          .querySelectorAll(".screen")
+          .forEach((s) => s.classList.remove("active"));
+        el(name).classList.add("active");
+        document
+          .querySelectorAll(".nav button")
+          .forEach((b) => b.classList.toggle("on", b.dataset.go === name));
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        if (name === "play") renderScene();
+        if (name === "library") renderLibrary();
+      }
+      document
+        .querySelectorAll("[data-go]")
+        .forEach((b) => b.addEventListener("click", () => show(b.dataset.go)));
+      el("startBtn").addEventListener("click", () => {
+        index = 0;
+        solved = 0;
+        show("play");
+      });
+
+      function renderScene() {
+        const c = cases[index];
+        el("chapterTitle").textContent = c.chapter;
+        el("chapterType").textContent = c.type;
+        el("sceneTitle").textContent = c.sceneTitle;
+        el("sceneText").textContent = c.sceneText;
+        el("progressText").textContent = `${index + 1} / ${cases.length}`;
+        el("rightText").textContent = `已识破 ${solved} 局`;
+        el("progressBar").style.width = `${
+          ((index + 1) / cases.length) * 100
+        }%`;
+        el("choices").innerHTML = "";
+        c.choices.forEach(([text, ok], i) => {
+          const b = document.createElement("button");
+          b.className = "choice";
+          b.textContent = `${String.fromCharCode(65 + i)}. ${text}`;
+          b.addEventListener("click", () => {
+            selectedCorrect = ok;
+            if (ok) solved++;
+            renderReveal();
+            show("reveal");
+          });
+          el("choices").appendChild(b);
+        });
+      }
+
+      function renderReveal() {
+        const c = cases[index];
+        el("resultText").textContent = selectedCorrect
+          ? "这一局，你识破了。"
+          : "这一局，你中招了。";
+        el("juNo").textContent = `${c.chapter} · ${c.type}`;
+        el("trickTitle").textContent = c.title;
+        el("alias").textContent = c.alias;
+        el("method").textContent = c.method;
+        el("psych").textContent = c.psych;
+        el("redflags").textContent = c.redflags;
+        el("breakLine").textContent = `破局：${c.breakLine}`;
+        el(
+          "source"
+        ).innerHTML = `案例线索来源：<a target="_blank" rel="noopener" href="${c.sourceUrl}">${c.sourceName}</a>`;
+        el("collectBtn").textContent = collected.has(c.id)
+          ? "已收进骗经"
+          : "收进骗经";
+      }
+      el("collectBtn").addEventListener("click", () => {
+        collected.add(cases[index].id);
+        el("collectBtn").textContent = "已收进骗经";
+      });
+      el("nextBtn").addEventListener("click", () => {
+        if (index < cases.length - 1) {
+          index++;
+          show("play");
+        } else {
+          el(
+            "endingScore"
+          ).textContent = `这五局，你识破了 ${solved} 局。这个数字不是“防骗能力分数”。`;
+          show("ending");
+        }
+      });
+
+      let activeFilter = "全部";
+      function renderLibrary() {
+        const types = [
+          "全部",
+          ...new Set(cases.map((c) => c.type.split(" / ")[0])),
+        ];
+        el("filters").innerHTML = "";
+        types.forEach((t) => {
+          const b = document.createElement("button");
+          b.className = "chip" + (activeFilter === t ? " on" : "");
+          b.textContent = t;
+          b.addEventListener("click", () => {
+            activeFilter = t;
+            renderLibrary();
+          });
+          el("filters").appendChild(b);
+        });
+        const filtered =
+          activeFilter === "全部"
+            ? cases
+            : cases.filter((c) => c.type.startsWith(activeFilter));
+        el("libCount").textContent = `${cases.length} 局`;
+        el("caseList").innerHTML = "";
+        filtered.forEach((c) => {
+          const d = document.createElement("article");
+          d.className = "listitem";
+          d.innerHTML = `<div class="t">${c.title}</div><div class="m">${c.type} · ${c.alias}</div><div class="tip">破局：${c.breakLine}</div>`;
+          d.addEventListener("click", () => {
+            index = cases.findIndex((x) => x.id === c.id);
+            selectedCorrect = true;
+            renderReveal();
+            show("reveal");
+          });
+          el("caseList").appendChild(d);
+        });
+      }
+
+      const privacy = el("privacyModal"),
+        submit = el("submitModal");
+      el("openPrivacy").addEventListener("click", () => {
+        privacy.classList.add("show");
+        privacy.setAttribute("aria-hidden", "false");
+      });
+      el("privacyClose").addEventListener("click", () =>
+        privacy.classList.remove("show")
+      );
+      ["c1", "c2", "c3"].forEach((id) =>
+        el(id).addEventListener("change", () => {
+          el("privacyNext").disabled = !(
+            el("c1").checked &&
+            el("c2").checked &&
+            el("c3").checked
+          );
+        })
+      );
+      el("privacyNext").addEventListener("click", () => {
+        privacy.classList.remove("show");
+        submit.classList.add("show");
+        submit.setAttribute("aria-hidden", "false");
+      });
+      el("submitClose").addEventListener("click", () =>
+        submit.classList.remove("show")
+      );
+      el("submitForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const item = {
+          start: el("fStart").value.trim(),
+          hook: el("fHook").value.trim(),
+          brk: el("fBreak").value.trim(),
+          source: el("fSource").value.trim(),
+          time: new Date().toLocaleString(),
+        };
+        const key = "xjp_pending";
+        const list = JSON.parse(localStorage.getItem(key) || "[]");
+        list.unshift(item);
+        localStorage.setItem(key, JSON.stringify(list.slice(0, 20)));
+        submit.classList.remove("show");
+        e.target.reset();
+        el(
+          "pendingBox"
+        ).innerHTML = `已提交 1 条新线索，状态：<b>待审核</b>。<br>本原型只保存在你当前浏览器中；正式版需要服务器数据库和审核后台。`;
+      });
+      renderLibrary();
+    </script>
+  </body>
+</html>
